@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Route will go here
 let toDoList = require('./routes/toDoList.router');
-app.use('/toDoList', toDoList);
+app.use('/toDoList', toDoList); // toDoList is the base routes going forward.
 
 const port = 5000;
 app.listen(port, function () {
