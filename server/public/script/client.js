@@ -8,43 +8,36 @@ function onReady() {
   // Event handlers
 
   $(document).on('click', addToDoItem);
-}
-
-function addToDoItem() {
-  //get user input and put it into an object.
-
-  let taskCreated = {
-    task: // $(nameofID).val()
-    complete: 
-    date: 
-  };
-
+  $('#completeBtn').on('click', postToDoListItems);
   //
 }
 
+function addAToDoListItem(event) {
+  event.preventDefault();
+  // this is going to grab values from the DOM
+  let grabOffDOM = {
+    task: $('#taskInputBox').val(),
+    complete: $('#completeBtn').val(),
+    date: $('#dateInput').val(),
+  };
+  //
 
-
-
-
-
-function addAToDoListItem(AddedTask) {
   $.ajax({
     type: 'POST',
     url: '/toDoList',
-    data: AddedTask,
+    data: grabOffDOM,
   })
     .then(function (response) {
       console.log('Response from server.', response);
+      $('#taskInputBox').val(''),
+        $('#completeBtn').val(''),
+        $('#dateInput').val('');
       // refreshfunction | have a function here to refresh.
     })
     .catch(function (error) {
       console.log('Error in POST', error);
       alert(
-        'Unable to add an item to the ToDo List. Please try again later.'
+        'Woah, something bad happened to the ToDo List. Please try again later.'
       );
     });
 }
-
-
-
-
