@@ -16,7 +16,7 @@ function getTasks() {
 
   $.ajax({
     type: 'GET',
-    url: '/koalas',
+    url: '/toDoList',
   }).then(function (response) {
     console.log('check response', response);
     //append to DOM
@@ -31,36 +31,13 @@ function getTasks() {
           <td>${response[i].newTask.complete}</td>
           <td>${response[i].newTask.date}</td>
           <td>
-            <button class="transferBtn" data-id="${response[i].id}">Ready For Transfer</button>
-          </td>
-          <td>
-            <button class="deleteBtn" data-id="${response[i].id}">Delete!</button>
+            <button class="completedBtn" data-id="${response[i].id}">Completed!</button>
           </td>
         </tr>
       `);
     }
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 function addAToDoListItem(event) {
   event.preventDefault();
@@ -70,7 +47,7 @@ function addAToDoListItem(event) {
     complete: $('#completeBtn').val(),
     date: $('#dateInput').val(),
   };
-  
+
   $.ajax({
     type: 'POST',
     url: '/toDoList',
