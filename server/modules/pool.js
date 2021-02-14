@@ -5,8 +5,6 @@ const pool = new pg.Pool({
   // This option is required
   database: 'weekend-to-do-app',
 
-  // these are not required,
-  // but you may see them around
   host: 'localhost',
   port: 5432,
 });

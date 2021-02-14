@@ -6,9 +6,7 @@ function onReady() {
   console.log('jQuery is running and ready');
 
   // Event handlers
-
-  $(document).on('click', addToDoItem);
-  $('#completeBtn').on('click', postToDoListItems);
+  $('#completeBtn').on('click', addAToDoListItem);
   //
 }
 
@@ -25,7 +23,9 @@ function addAToDoListItem(event) {
   $.ajax({
     type: 'POST',
     url: '/toDoList',
-    data: grabOffDOM,
+    data: {
+      newTask: grabOffDOM,
+    },
   })
     .then(function (response) {
       console.log('Response from server.', response);
