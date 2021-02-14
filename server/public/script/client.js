@@ -10,6 +10,58 @@ function onReady() {
   //
 }
 
+function getTasks() {
+  console.log('inside of getTasks');
+  $('#viewKoalas').empty();
+
+  $.ajax({
+    type: 'GET',
+    url: '/koalas',
+  }).then(function (response) {
+    console.log('check response', response);
+    //append to DOM
+    /*
+    rename add_koala button 
+    rename delete_koala button
+    */
+    for (let i = 0; i < response.length; i++) {
+      $('#appendToDOM').append(`
+        <tr>
+          <td>${response[i].newTask.task}</td>
+          <td>${response[i].newTask.complete}</td>
+          <td>${response[i].newTask.date}</td>
+          <td>
+            <button class="transferBtn" data-id="${response[i].id}">Ready For Transfer</button>
+          </td>
+          <td>
+            <button class="deleteBtn" data-id="${response[i].id}">Delete!</button>
+          </td>
+        </tr>
+      `);
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function addAToDoListItem(event) {
   event.preventDefault();
   // this is going to grab values from the DOM
@@ -18,8 +70,7 @@ function addAToDoListItem(event) {
     complete: $('#completeBtn').val(),
     date: $('#dateInput').val(),
   };
-  //
-
+  
   $.ajax({
     type: 'POST',
     url: '/toDoList',
