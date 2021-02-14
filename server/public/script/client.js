@@ -7,7 +7,8 @@ function onReady() {
 
   // Event handlers
   $('#submitTaskBtn').on('click', addAToDoListItem);
-  $('#appendListToDOM').on('.completedBtn', completedItem);
+  $('#appendListToDOM').on('click', '.deleteBtn', deleteItem);
+  $('appendListToDOM').on('click', '.taskComplete', updateItems);
   //
 }
 
@@ -26,11 +27,14 @@ function getTasks() {
     rename delete_koala button
     */
     for (let i = 0; i < response.length; i++) {
-      $('#appendToDOM').append(`
+      $('#appendListToDOM').append(`
         <tr>
-          <td>${response[i].newTask.task}</td>
+          <td>${response[i].task}</td>
           <td>
-            <button class="completedBtn" data-id="${response[i].id}">Task Completed!</button>
+            <button class="taskComplete" data-id="${response[i].id}">Task Complete!</button>
+          </td>
+          <td>
+            <button class="deleteBtn" data-id="${response[i].id}">Delete Task!</button>
           </td>
         </tr>
       `);
@@ -38,22 +42,36 @@ function getTasks() {
   });
 }
 
-function completedItem() {
-  deleteItem($(this).data('id'));
-}
-
 function deleteItem() {
-  // call AJAX to DELETE song;
+  const deleteTask = $(this).data('id');
+  console.log('GET-SIDE deleteTask', deleteTask);
+
+  // call AJAX to DELETE task "with id";
   $.ajax({
     method: 'DELETE',
-    url: `/toDoList/songs/${songId}`,
+    url: `/toDoList/delete/${deleteTask}`,
   })
     .then(function (response) {
-      // refresh the music list
-      getMusicData();
+      // refresh the task list.
+      console.log('client-side response', response);
+      getTasks();
     })
-    .catch(function (banana) {
-      alert('Error on Deleting song.', banana);
+    .catch(function (error) {
+      alert('Error on Deleting song.', error);
+    });
+}
+
+function updateItems() {
+  const completeTaskID = $(this).data(`id`);
+  $.ajax({
+    type: 'PUT',
+    url: `/toDoList/put/${completeTaskID}`,
+  })
+    .then(function (response) {
+      getTasks();
+    })
+    .catch(function (error) {
+      console.log('CLIENT - an error occurred ', error);
     });
 }
 
@@ -74,8 +92,8 @@ function addAToDoListItem(event) {
     .then(function (response) {
       console.log('Response from server.', response);
       $('#taskInputBox').val('');
-      //
-      // refreshfunction | have a function here to refresh.
+      // have getTasks func here to refresh the screen.
+      getTasks();
     })
     .catch(function (error) {
       console.log('Error in POST', error);
