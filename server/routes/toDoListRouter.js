@@ -8,7 +8,23 @@ const pool = require('../modules/pool.js');
 //
 
 // need to make router.get | this second
+ToDoListRouter.get('/', function (req, res) {
+  pool
+    .query('SELECT * FROM "todo_list" ')
+    .then(function (dbRes) {
+      // dbResults | this is going to return an object.
+      console.log('response from dbRes', dbRes);
+      console.log('response from req.body', req.body);
+      // res.sendStatus(200);
 
+      res.send(dbRes.rows); // this is going to send to client side the table rows from the database.
+      //
+    })
+    .catch(function (error) {
+      console.log('GET SERVER-Side error', error);
+      res.sendStatus(500);
+    });
+});
 // need to make router.put |aka update
 
 // need to make router.post | work on this first
@@ -20,17 +36,12 @@ ToDoListRouter.post('/', function (req, res) {
   console.log('adding new item', req.body);
   // need to add C.L's for below.
   console.log(req.body.newTask.task);
-  console.log(req.body.newTask.complete);
-  console.log(req.body.newTask.date);
+  // console.log(req.body.newTask.complete);
 
-  let queryText = `INSERT INTO "todo_list" ("task", "complete", "date") 
-  VALUES ($1, $2, $3 );`;
+  let queryText = `INSERT INTO "todo_list" ("task") 
+  VALUES ($1);`;
 
-  let queryArgs = [
-    req.body.newTask.task,
-    req.body.newTask.complete,
-    req.body.newTask.date,
-  ];
+  let queryArgs = [req.body.newTask.task];
 
   pool
     .query(queryText, queryArgs)
@@ -39,11 +50,11 @@ ToDoListRouter.post('/', function (req, res) {
       res.sendStatus(200);
     })
     .catch(function (error) {
-      console.log('Server side POST:', error);
+      console.log('POST SERVER SIDE ERROR ', error);
       res.sendStatus(500);
     });
   //
-  // res.sendStatus(200);
+  //
 });
 
 //

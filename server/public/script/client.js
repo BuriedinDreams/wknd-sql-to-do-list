@@ -6,13 +6,14 @@ function onReady() {
   console.log('jQuery is running and ready');
 
   // Event handlers
-  $('#completeBtn').on('click', addAToDoListItem);
+  $('#submitTaskBtn').on('click', addAToDoListItem);
+  $('#appendListToDOM').on('.completedBtn', completedItem);
   //
 }
 
 function getTasks() {
   console.log('inside of getTasks');
-  $('#viewKoalas').empty();
+  $('#appendListToDOM').empty();
 
   $.ajax({
     type: 'GET',
@@ -28,10 +29,8 @@ function getTasks() {
       $('#appendToDOM').append(`
         <tr>
           <td>${response[i].newTask.task}</td>
-          <td>${response[i].newTask.complete}</td>
-          <td>${response[i].newTask.date}</td>
           <td>
-            <button class="completedBtn" data-id="${response[i].id}">Completed!</button>
+            <button class="completedBtn" data-id="${response[i].id}">Task Completed!</button>
           </td>
         </tr>
       `);
@@ -39,13 +38,30 @@ function getTasks() {
   });
 }
 
+function completedItem() {
+  deleteItem($(this).data('id'));
+}
+
+function deleteItem() {
+  // call AJAX to DELETE song;
+  $.ajax({
+    method: 'DELETE',
+    url: `/toDoList/songs/${songId}`,
+  })
+    .then(function (response) {
+      // refresh the music list
+      getMusicData();
+    })
+    .catch(function (banana) {
+      alert('Error on Deleting song.', banana);
+    });
+}
+
 function addAToDoListItem(event) {
   event.preventDefault();
   // this is going to grab values from the DOM
   let grabOffDOM = {
     task: $('#taskInputBox').val(),
-    complete: $('#completeBtn').val(),
-    date: $('#dateInput').val(),
   };
 
   $.ajax({
@@ -57,9 +73,8 @@ function addAToDoListItem(event) {
   })
     .then(function (response) {
       console.log('Response from server.', response);
-      $('#taskInputBox').val(''),
-        $('#completeBtn').val(''),
-        $('#dateInput').val('');
+      $('#taskInputBox').val('');
+      //
       // refreshfunction | have a function here to refresh.
     })
     .catch(function (error) {
