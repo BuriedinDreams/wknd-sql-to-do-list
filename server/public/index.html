@@ -12,5 +12,31 @@
   </head>
   <body>
     <h1>Reminders Webpage</h1>
+
+    <form class="taskForm">
+      <input
+        type="text"
+        placeholder="Task to add"
+        class="taskInput"
+        id="taskInputBox"
+      />
+
+      <input
+        type="button"
+        value=" Submit Task "
+        class="taskInput"
+        id="submitTaskBtn"
+      />
+    </form>
+
+    <table id="tableData">
+      <thead>
+        <tr>
+          <th>All of the items in the ToDo-List</th>
+        </tr>
+      </thead>
+      <tbody id="appendListToDOM"></tbody>
+      <!--  -->
+    </table>
   </body>
 </html>
