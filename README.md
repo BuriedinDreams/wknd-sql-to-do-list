@@ -1,6 +1,6 @@
 # SQL To-Do-List
 
-This web application handled as a daily To-Do-List.
+This web application is handled as a daily To-Do-List.
 
 ## Description
 
