@@ -4,11 +4,11 @@ $(document).ready(onReady);
 
 function onReady() {
   console.log('jQuery is running and ready');
-
+  getTasks(); // this is going to show the append everything on start.
   // Event handlers
   $('#submitTaskBtn').on('click', addAToDoListItem);
   $('#appendListToDOM').on('click', '.deleteBtn', deleteItem);
-  $('appendListToDOM').on('click', '.taskComplete', updateItems);
+  $('#appendListToDOM').on('click', '.taskComplete', updateItems);
   //
 }
 
@@ -21,14 +21,24 @@ function getTasks() {
     url: '/toDoList',
   }).then(function (response) {
     console.log('check response', response);
-    //append to DOM
-    /*
-    rename add_koala button 
-    rename delete_koala button
-    */
+
+    // let taskToComplete = $('.taskComplete');
+    // console.log('GET taskComplete', taskToComplete);
+
     for (let i = 0; i < response.length; i++) {
+      let addColorGreen = ''; // this is to reset after I've clicked a Task Complete
+
+      // completeTaskGreen style css
+
+      if (response[i].complete === true) {
+        // this will change to true once user clicks task complete
+        addColorGreen = 'completeTaskGreen';
+
+        // $(this).class(completeTaskGreen);
+      }
+
       $('#appendListToDOM').append(`
-        <tr>
+        <tr class="${addColorGreen}">
           <td>${response[i].task}</td>
           <td>
             <button class="taskComplete" data-id="${response[i].id}">Task Complete!</button>
@@ -62,7 +72,8 @@ function deleteItem() {
 }
 
 function updateItems() {
-  const completeTaskID = $(this).data(`id`);
+  console.log('Inside updateItems func clientSIDE');
+  const completeTaskID = $(this).data('id');
   $.ajax({
     type: 'PUT',
     url: `/toDoList/put/${completeTaskID}`,

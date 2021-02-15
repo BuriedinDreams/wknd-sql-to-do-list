@@ -55,7 +55,7 @@ ToDoListRouter.put('/put/:id', (req, res) => {
   console.log('req.params ', req.params);
   console.log('SERVER - PUT inside /toDoList/put');
   let taskUpdate = req.params.id;
-  let queryText = `UPDATE ""todo_list"" SET "todo_list"=TRUE WHERE "id"=$1`;
+  let queryText = `UPDATE "todo_list" SET "complete"=TRUE WHERE "id"=$1`;
   console.log('incoming task with id:', taskUpdate);
 
   pool
