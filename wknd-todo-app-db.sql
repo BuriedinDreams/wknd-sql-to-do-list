@@ -5,23 +5,21 @@ DROP TABLE "todo_list";
 CREATE TABLE "todo_list" (
 	"id" SERIAL PRIMARY KEY,
 	"task" VARCHAR (250) NOT NULL,
-	"complete" BOOLEAN NOT NULL DEFAULT FALSE,
-	"date" DATE );
+	"complete" BOOLEAN NOT NULL DEFAULT FALSE );
 
 
 -- insert VALUES
 
-INSERT INTO "todo_list" 
-	("task", "complete", "date") 
-VALUES ( 'laundry','02-12-2021'),
-		( 'clean dishes', '02-13-2021'),
-		( 'work on code', '02-13-2021');
+INSERT INTO "todo_list" ("task") 
+VALUES ( 'laundry'),
+		( 'clean dishes'),
+		( 'work on code');
 		
 		
 		
-		
-INSERT INTO "todo_list" ("task", "complete", "date") 
-  VALUES ('fishing','02-12-2021');
+-- For POST example  -- querytext		
+INSERT INTO "todo_list" ("task") 
+  VALUES ('fishing');
 		
 		
 		
