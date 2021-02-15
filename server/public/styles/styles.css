@@ -1,7 +1,23 @@
 body {
+  font-family: 'Noto Sans JP', sans-serif;
   background-color: steelblue;
 }
 
 .completeTaskGreen {
   background-color: green;
+}
+
+.taskComplete {
+  background-color: mediumseagreen;
+}
+
+#submitTaskBtn {
+  background-color: rgba(255, 255, 0, 0.79);
+}
+.deleteBtn {
+  background-color: rgb(201, 200, 200);
+}
+
+#toDoListTitle {
+  padding-block: 1em;
 }

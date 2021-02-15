@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="./styles/styles.css" />
     <script src="./vendors/jQuery-min.js"></script>
     <script src="./script/client.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Reminders Webpage</title>
   </head>
@@ -16,7 +21,7 @@
     <form class="taskForm">
       <input
         type="text"
-        placeholder="Task to add"
+        placeholder="Enter ToDo-List item "
         class="taskInput"
         id="taskInputBox"
       />
@@ -32,7 +37,7 @@
     <table id="tableData">
       <thead>
         <tr>
-          <th>All of the items in the ToDo-List</th>
+          <th id="toDoListTitle">All of the items in the ToDo-List</th>
         </tr>
       </thead>
       <tbody id="appendListToDOM"></tbody>

@@ -33,8 +33,6 @@ function getTasks() {
       if (response[i].complete === true) {
         // this will change to true once user clicks task complete
         addColorGreen = 'completeTaskGreen';
-
-        // $(this).class(completeTaskGreen);
       }
 
       $('#appendListToDOM').append(`
@@ -54,7 +52,7 @@ function getTasks() {
 
 function deleteItem() {
   const deleteTask = $(this).data('id');
-  console.log('GET-SIDE deleteTask', deleteTask);
+  console.log('Delete-SIDE deleteTask', deleteTask);
 
   // call AJAX to DELETE task "with id";
   $.ajax({
@@ -63,11 +61,11 @@ function deleteItem() {
   })
     .then(function (response) {
       // refresh the task list.
-      console.log('client-side response', response);
+      console.log('client-side-delete response', response);
       getTasks();
     })
     .catch(function (error) {
-      alert('Error on Deleting song.', error);
+      alert('Error on Deleting items.', error);
     });
 }
 
@@ -82,7 +80,7 @@ function updateItems() {
       getTasks();
     })
     .catch(function (error) {
-      console.log('CLIENT - an error occurred ', error);
+      console.log('CLIENT-Put-Update-Items - an error occurred ', error);
     });
 }
 
